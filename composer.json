@@ -1,0 +1,36 @@
+{
+    "name": "taylornetwork/linkify",
+    "description": "A package to linkify text",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sam Taylor",
+            "email": "sam@taylornetwork.ca"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "illuminate/support": ">=5.5"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.7",
+        "mockery/mockery": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "TaylorNetwork\\Linkify\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TaylorNetwork\\Linkify\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TaylorNetwork\\Linkify\\LinkifyServiceProvider"
+            ]
+        }
+    }
+}
