@@ -101,18 +101,18 @@ Returns
 
 ---
 
-### Make Links Trait
+### Makes Links Trait
 
-The `MakeLinks` trait will allow you to access the parser with a `linkify($text)` method on your class.
+The `MakesLinks` trait will allow you to access the parser with a `linkify($text)` method on your class.
 
 **Basic Usage**
 
 ```php
-use TaylorNetwork\Linkify\MakeLinks;
+use TaylorNetwork\Linkify\MakesLinks;
 
 class DummyClass
 {
-	use MakeLinks;
+	use MakesLinks;
 	
 	protected $text = 'This has a link. https://google.com';
 	
@@ -132,12 +132,12 @@ class DummyClass
 **Override Config**
 
 ```php
-use TaylorNetwork\Linkify\MakeLinks;
+use TaylorNetwork\Linkify\MakesLinks;
 use TaylorNetwork\Linkify\Linkify;
 
 class DummyClass
 {
-	use MakeLinks;
+	use MakesLinks;
 	
 	protected $text = 'This has a link. https://google.com';
 	
@@ -165,12 +165,12 @@ class DummyClass
 **With Custom Format**
 
 ```php
-use TaylorNetwork\Linkify\MakeLinks;
+use TaylorNetwork\Linkify\MakesLinks;
 use TaylorNetwork\Linkify\Linkify;
 
 class DummyClass
 {
-	use MakeLinks;
+	use MakesLinks;
 	
 	protected $text = 'This has a link. https://google.com';
 	
@@ -270,7 +270,7 @@ Linkify::instance()->parse($text);
 
 **You can define a custom formatter in the config file, but prefer that you use the `MakeLinks` trait.**
 
-[See Make Links Trait](#make-links-trait)
+[See Makes Links Trait](#makes-links-trait)
 
 ```php
 'customCallback' => function ($caption, $url) {
