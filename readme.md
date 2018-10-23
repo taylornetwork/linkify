@@ -203,7 +203,7 @@ class DummyClass
 Publish the config using the artisan command.
 
 ```bash
-$ php artisan vendor:publish --provider="TaylorNetwork\Linkify\Linkify"
+$ php artisan vendor:publish --provider="TaylorNetwork\Linkify\LinkifyServiceProvider"
 ```
 
 Will publish the config file to `config/linkify.php`
