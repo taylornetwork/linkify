@@ -1,21 +1,21 @@
-<?php 
+<?php
 
 namespace TaylorNetwork\Linkify\Tests;
 
-use TaylorNetwork\Linkify\MakesLinks;
 use TaylorNetwork\Linkify\Linkify;
+use TaylorNetwork\Linkify\MakesLinks;
 
 class TestingClass
 {
-	use MakesLinks;
+    use MakesLinks;
 
-	public function linkifyCustomParse(string $caption, string $url)
-	{
-		return '^' . $url . '^$' . $caption . '$';
-	}
+    public function linkifyCustomParse(string $caption, string $url)
+    {
+        return '^'.$url.'^$'.$caption.'$';
+    }
 
-	public function linkifyConfig(&$linkify)
-	{
-		$linkify->setConfig('convertTo', Linkify::ConvertCustom);
-	}
+    public function linkifyConfig(&$linkify)
+    {
+        $linkify->setConfig('convertTo', Linkify::ConvertCustom);
+    }
 }
