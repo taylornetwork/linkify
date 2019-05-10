@@ -22,16 +22,16 @@ class LinkifyTest extends TestCase
         $linkify = new Linkify();
 
         $this->assertEquals(
-            $linkify->parse('Google Link: https://www.google.com!'),
-            'Google Link: [google.com](https://www.google.com)!'
+            'Google Link: [google.com](https://www.google.com)!',
+            $linkify->parse('Google Link: https://www.google.com!')
         );
     }
 
     public function testStaticCall()
     {
         $this->assertEquals(
-            Linkify::instance()->parse('Google Link: https://www.google.com!'),
-            'Google Link: [google.com](https://www.google.com)!'
+            'Google Link: [google.com](https://www.google.com)!',
+            Linkify::instance()->parse('Google Link: https://www.google.com!')
         );
     }
 
@@ -42,8 +42,8 @@ class LinkifyTest extends TestCase
         $linkify->setConfig('convertTo', Linkify::ConvertHTML);
 
         $this->assertEquals(
-            $linkify->parse('Google Link: https://www.google.com!'),
-            'Google Link: <a href="https://www.google.com">google.com</a>!'
+            'Google Link: <a href="https://www.google.com">google.com</a>!',
+            $linkify->parse('Google Link: https://www.google.com!')
         );
     }
 
@@ -58,8 +58,8 @@ class LinkifyTest extends TestCase
         ]);
 
         $this->assertEquals(
-            $linkify->parse('Google Link: https://www.google.com!'),
-            'Google Link: <a class="btn-link" target="_blank" href="https://www.google.com">google.com</a>!'
+            'Google Link: <a class="btn-link" target="_blank" href="https://www.google.com">google.com</a>!',
+            $linkify->parse('Google Link: https://www.google.com!')
         );
     }
 
@@ -68,8 +68,8 @@ class LinkifyTest extends TestCase
         $linkify = new Linkify();
 
         $this->assertEquals(
-            $linkify->parse('Google Link: https://www.google.com! And another: https://github.com/taylornetwork/linkify'),
-            'Google Link: [google.com](https://www.google.com)! And another: [github.com](https://github.com/taylornetwork/linkify)'
+            'Google Link: [google.com](https://www.google.com)! And another: [github.com](https://github.com/taylornetwork/linkify)',
+            $linkify->parse('Google Link: https://www.google.com! And another: https://github.com/taylornetwork/linkify')
         );
     }
 
@@ -82,8 +82,8 @@ class LinkifyTest extends TestCase
         });
 
         $this->assertEquals(
-            $linkify->parse('Google Link: https://www.google.com!'),
-            'Google Link: {google.com}**https://www.google.com**!'
+            'Google Link: {google.com}**https://www.google.com**!',
+            $linkify->parse('Google Link: https://www.google.com!')
         );
     }
 
@@ -92,8 +92,27 @@ class LinkifyTest extends TestCase
         $testClass = new TestingClass();
 
         $this->assertEquals(
-            $testClass->linkify('Google Link: https://www.google.com!'),
-            'Google Link: ^https://www.google.com^$google.com$!'
+            'Google Link: ^https://www.google.com^$google.com$!',
+            $testClass->linkify('Google Link: https://www.google.com!')
+        );
+    }
+
+    public function testHasExisting()
+    {
+        $linkify = new Linkify();
+        $this->assertEquals(
+            'Google Link: [google.com](https://www.google.com)!',
+            $linkify->parse('Google Link: [google.com](https://www.google.com)!')
+        );
+    }
+
+    public function testHasExistingOtherFormat()
+    {
+        $linkify = new Linkify();
+        $linkify->setConfig('convertTo', Linkify::ConvertMarkdown);
+        $this->assertEquals(
+            'Google Link: <a href="https://www.google.com">google.com</a>!',
+            $linkify->parse('Google Link: <a href="https://www.google.com">google.com</a>!')
         );
     }
 }
