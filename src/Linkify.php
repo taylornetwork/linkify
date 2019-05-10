@@ -181,6 +181,7 @@ class Linkify
     public function setText(string $text)
     {
         $this->text = $text;
+
         return $this;
     }
 
@@ -193,7 +194,7 @@ class Linkify
      */
     public function parse(string $text = null)
     {
-        if(!is_null($text)) {
+        if (!is_null($text)) {
             $this->text = $text;
         }
 
