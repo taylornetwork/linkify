@@ -101,12 +101,8 @@ class Linkify
      */
     public function markdown(string $caption, string $url)
     {
-        if ($this->config['checkForExistingFormatting']) {
-            $pos = strpos($this->text, $url);
-
-            if ($this->text[$pos - 2] === ']' && $this->text[$pos - 1] === '(' && $this->text[$pos + strlen($url)] === ')') {
-                return $url;
-            }
+        if ($this->config['checkForExistingFormatting'] && $this->hasExistingFormatting($url)) {
+            return $url;
         }
 
         return '['.$caption.']('.$url.')';
@@ -122,12 +118,8 @@ class Linkify
      */
     public function HTML(string $caption, string $url)
     {
-        if ($this->config['checkForExistingFormatting']) {
-            $pos = strpos($this->text, $url);
-
-            if ($this->text[$pos - 1] === '>' && substr($this->text, $pos + strlen($url), 4) === '</a>') {
-                return $url;
-            }
+        if ($this->config['checkForExistingFormatting'] && $this->hasExistingFormatting($url)) {
+            return $url;
         }
 
         $attributes = [''];
@@ -158,15 +150,52 @@ class Linkify
     }
 
     /**
+     * Check for existing formatting.
+     *
+     * @param string $url
+     *
+     * @return bool
+     */
+    public function hasExistingFormatting(string $url)
+    {
+        $pos = strpos($this->text, $url);
+
+        if ($this->text[$pos - 2] === ']' && $this->text[$pos - 1] === '(' && $this->text[$pos + strlen($url)] === ')') {
+            return true;
+        }
+
+        if (substr($this->text, $pos - 6, 5) === 'href=' && $this->text[$pos + strlen($url)] === '"') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Set text.
+     *
+     * @param string $text
+     *
+     * @return $this
+     */
+    public function setText(string $text)
+    {
+        $this->text = $text;
+        return $this;
+    }
+
+    /**
      * Parse text.
      *
      * @param string $text
      *
      * @return string
      */
-    public function parse(string $text)
+    public function parse(string $text = null)
     {
-        $this->text = $text;
+        if(!is_null($text)) {
+            $this->text = $text;
+        }
 
         $callback = function ($urlMatch) {
             $url = $urlMatch[0];
